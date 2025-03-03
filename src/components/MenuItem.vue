@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
-import { MenuItem as MenuItemType } from '../types';
+import type { MenuItem as MenuItemType } from '../types';
 import MenuItemEditor from './MenuItemEditor.vue';
 
 const props = defineProps<{
@@ -122,7 +122,7 @@ const paddingLeft = computed(() => `${props.level * 1.5}rem`);
       class="pl-4 nested-sortable"
       :data-parent-id="item.id"
     >
-      <template v-for="(child, index) in item.children" :key="child.id">
+      <template v-for="(child) in item.children" :key="child.id">
         <MenuItem 
           :item="child" 
           :level="level + 1"

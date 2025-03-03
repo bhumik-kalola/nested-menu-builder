@@ -1,16 +1,15 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import { PageItem } from "../types";
+import type { PageItem as PageItems } from "../types";
 
-const props = defineProps<{
-  pages: PageItem[];
+defineProps<{
+  pages: PageItems[];
 }>();
 
 const emit = defineEmits<{
-  (e: "add-to-menu", page: PageItem): void;
+  (e: "add-to-menu", page: PageItems): void;
 }>();
 
-const addToMenu = (page: PageItem) => {
+const addToMenu = (page: PageItems) => {
   emit("add-to-menu", page);
 };
 </script>

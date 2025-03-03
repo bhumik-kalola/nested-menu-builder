@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import MenuBuilder from './components/MenuBuilder.vue';
-import { PageItem } from './types';
+import type { PageItem as PageItems } from "./types"
+
 
 // Sample pages data
-const pages = ref<PageItem[]>([
+const pages = ref<PageItems[]>([
   { id: '1', name: 'Home', url: '/home' },
   { id: '2', name: 'About', url: '/about' },
   { id: '3', name: 'Products', url: '/products' },

@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import { MenuItem } from "../types";
+import type { MenuItem as MenuItemType } from '../types';
 
 const props = defineProps<{
-  item: MenuItem;
+  item: MenuItemType;
 }>();
 
 const emit = defineEmits<{
-  (e: "update", item: MenuItem): void;
+  (e: "update", item: MenuItemType): void;
   (e: "delete"): void;
   (e: "move-up"): void;
   (e: "move-down"): void;

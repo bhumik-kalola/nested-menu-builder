@@ -10,11 +10,12 @@
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.0.9",
+    "uuid": "^9.0.0",
     "vue": "^3.5.13",
-    "vuedraggable": "^4.1.0",
-    "uuid": "^9.0.0"
+    "vuedraggable": "^4.1.0"
   },
   "devDependencies": {
+    "@types/sortablejs": "^1.15.8",
     "@types/uuid": "^9.0.2",
     "@vitejs/plugin-vue": "^5.2.1",
     "@vue/tsconfig": "^0.7.0",

@@ -2,7 +2,7 @@
 import { ref, onMounted, nextTick } from 'vue';
 import Sortable from 'sortablejs';
 import { v4 as uuidv4 } from 'uuid';
-import { MenuItem as MenuItemType, PageItem } from '../types';
+import type { MenuItem as MenuItemType, PageItem } from '../types';
 import MenuItem from './MenuItem.vue';
 import PageList from './PageList.vue';
 
@@ -246,7 +246,7 @@ const findItemAndParent = (
 
 const initSortable = () => {
   const mainContainer = document.querySelector('.menu-structure');
-  if (!mainContainer) return;
+  if (!(mainContainer instanceof HTMLElement)) return;
   
   // Initialize main sortable
   new Sortable(mainContainer, {
@@ -254,7 +254,7 @@ const initSortable = () => {
     animation: 150,
     fallbackOnBody: true,
     swapThreshold: 0.65,
-    onEnd: function(evt) {
+    onEnd: function(evt: Sortable.SortableEvent) {
       const itemEl = evt.item;
       const itemId = itemEl.getAttribute('data-id');
       const toParentId = evt.to.getAttribute('data-parent-id');
@@ -283,12 +283,12 @@ const initSortable = () => {
   // Initialize all nested sortables
   const nestedSortables = document.querySelectorAll('.nested-sortable');
   for (let i = 0; i < nestedSortables.length; i++) {
-    new Sortable(nestedSortables[i], {
+    new Sortable(nestedSortables[i] as HTMLElement, {
       group: 'nested',
       animation: 150,
       fallbackOnBody: true,
       swapThreshold: 0.65,
-      onEnd: function(evt) {
+      onEnd: function(evt: Sortable.SortableEvent) {
         const itemEl = evt.item;
         const itemId = itemEl.getAttribute('data-id');
         const toParentId = evt.to.getAttribute('data-parent-id');
@@ -379,8 +379,9 @@ const watchMenuChanges = () => {
         <div class="bg-white rounded-lg shadow p-4 mb-6">
           <div class="mb-4">
             <div class="flex items-center mb-2">
-              <label class="mr-2">Select the menu you want to edit:</label>
+              <label for="menu-select" class="mr-2">Select the menu you want to edit:</label>
               <select 
+                id="menu-select"
                 v-model="selectedMenu" 
                 @change="selectMenu(selectedMenu)"
                 class="p-2 border border-gray-300 rounded"
@@ -403,6 +404,7 @@ const watchMenuChanges = () => {
               <input 
                 v-model="newMenuName" 
                 type="text" 
+                id="new-menu-name"
                 placeholder="New menu name" 
                 class="p-2 border border-gray-300 rounded mr-2"
               />
@@ -423,8 +425,9 @@ const watchMenuChanges = () => {
           
           <div class="flex items-center justify-between mb-6">
             <div>
-              <label class="mr-2">Name:</label>
+              <label for="menu-name" class="mr-2">Name:</label>
               <input 
+                id="menu-name"
                 v-model="menuName" 
                 type="text" 
                 class="p-2 border border-gray-300 rounded"
@@ -445,7 +448,7 @@ const watchMenuChanges = () => {
             </p>
             
             <div class="menu-structure">
-              <template v-for="(item, index) in menus[selectedMenu]" :key="item.id">
+              <template v-for="item in menus[selectedMenu]" :key="item.id">
                 <MenuItem 
                   :item="item" 
                   :level="0"
@@ -493,4 +496,4 @@ const watchMenuChanges = () => {
       </div>
     </div>
   </div>
-</template> 
+</template>
